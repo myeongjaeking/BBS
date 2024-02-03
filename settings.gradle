@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 rootProject.name = 'hello-spring'
+=======
+rootProject.name = 'BBS'
+>>>>>>> 74be3b4 (feat: first commit)

@@ -5,10 +5,10 @@ plugins {
 }
 
 <<<<<<< HEAD
-group = 'java-spring'
-=======
 group = 'hello'
->>>>>>> 45116cb (feat: first commit)
+=======
+group = 'java-spring'
+>>>>>>> 74be3b4 (feat: first commit)
 version = '0.0.1-SNAPSHOT'
 
 java {
