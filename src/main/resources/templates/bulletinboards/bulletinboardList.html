@@ -14,6 +14,9 @@
             <tr th:each="bulletinboard : ${bulletinboards}">
                 <td th:text="${bulletinboard.id}"></td>
                 <td th:text="${bulletinboard.title}"></td>
+                <td th:text="${bulletinboard.content}"></td>
+                <!-- 저장된 id를 이용하여 URL 생성 -->
+                <td><a th:href="@{/bulletinboardList/{id}(id=${bulletinboard.id})}">상세보기</a></td>
             </tr>
             </tbody>
         </table>

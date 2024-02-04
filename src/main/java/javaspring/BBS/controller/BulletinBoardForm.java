@@ -9,5 +9,14 @@ public class BulletinBoardForm {
         this.title = title;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    private String content;
     private String title;
 }

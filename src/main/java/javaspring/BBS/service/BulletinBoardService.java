@@ -20,6 +20,7 @@ public class BulletinBoardService {
         bulletinBoardRepository.save(bulletinBoard);
         return bulletinBoard.getTitle();
     }
+
     private void validateDuplicateTitle(BulletinBoard bulletinBoard){
         bulletinBoardRepository.findByTitle(bulletinBoard.getTitle())
                 .ifPresent(m->{
@@ -31,5 +32,8 @@ public class BulletinBoardService {
     }
     public Optional<BulletinBoard> findOne(String bulletinBoardTitle){
         return bulletinBoardRepository.findByTitle(bulletinBoardTitle);
+    }
+    public Optional<BulletinBoard> findOne(Long id){
+        return bulletinBoardRepository.findById(id);
     }
 }

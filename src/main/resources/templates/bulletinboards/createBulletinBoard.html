@@ -2,11 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="container">
-    <form action="/bulletinboards/new" method="post"><div class="form-group">
-        <label for="name">제목</label>
-        <input type="text" id="name" name="title" placeholder="제목을 입력하세요">
-    </div>
-        <button type="submit">등록</button> </form>
+    <form action="/bulletinboards/new" method="post">
+        <div class="form-group">
+            <label for="name">제목</label>
+            <input type="text" id="name" name="title" placeholder="제목을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="content">내용</label>
+            <textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea>
+        </div>
+        <button type="submit">등록</button>
+    </form>
 </div> <!-- /container -->
 </body>
 </html>
