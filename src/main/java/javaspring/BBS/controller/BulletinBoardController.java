@@ -39,22 +39,5 @@ public class BulletinBoardController {
         model.addAttribute("bulletinboards",bulletinBoards);
         return "bulletinboards/bulletinboardList";
     }
-    @GetMapping("edit/{id}")
-
-    public String editBulletinBoard(@PathVariable Long id, Model model) {
-        System.out.println(321);
-        // id에 해당하는 게시판 내용을 서비스에서 가져오는 로직을 구현
-        Optional<BulletinBoard> optionalBulletinBoard = bulletinBoardService.findOne(id);
-
-        // optionalBulletinBoard가 존재하는 경우 모델에 추가하고 수정 폼을 보여줌
-        optionalBulletinBoard.ifPresent(bulletinBoard -> model.addAttribute("bulletinboard", bulletinBoard));
-
-        return "bulletinboards/editBulletinBoard";
-    }@PostMapping("/edit/{id}")
-
-    public String edit(@PathVariable Long id, BulletinBoardForm form){
-        return """
-                <h1>수정할 번호 : %d</h1>    
-                """.formatted(id);
 
 }
