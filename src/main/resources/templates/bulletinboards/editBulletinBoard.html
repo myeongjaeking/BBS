@@ -7,7 +7,8 @@
 </head>
 <body>
 <h2>Edit Bulletin Board</h2>
-<form th:action="@{/bulletinboards/update}" method="post" th:object="${bulletinboard}">
+<form th:action="@{/edit/{id}(id=${bulletinboard.id})}" method="post" th:object="${bulletinboard}">
+
     <input type="hidden" th:field="*{id}" />
     <label>Title: <input type="text" th:field="*{title}" /></label><br>
     <label>Content: <textarea th:field="*{content}"></textarea></label><br>

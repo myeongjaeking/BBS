@@ -39,5 +39,32 @@ public class BulletinBoardController {
         model.addAttribute("bulletinboards",bulletinBoards);
         return "bulletinboards/bulletinboardList";
     }
+    @GetMapping("/edit/{id}")
+    public String editForm(@PathVariable("id") Long id, Model model) {
+        // ID를 사용하여 기존 게시판 정보를 가져옴
+        Optional<BulletinBoard> optionalBulletinBoard = bulletinBoardService.findOne(id);
 
+        // optionalBulletinBoard가 존재하는 경우 모델에 추가
+        optionalBulletinBoard.ifPresent(bulletinBoard -> model.addAttribute("bulletinboard", bulletinBoard));
+
+        return "bulletinboards/editBulletinBoard";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, BulletinBoardForm form) {
+        // ID를 Long 타입으로 변환
+
+        Optional<BulletinBoard> optionalBulletinBoard = bulletinBoardService.findOne(id);
+
+        // optionalBulletinBoard가 존재하는 경우에만 수정 진행
+        optionalBulletinBoard.ifPresent(bulletinBoard -> {
+            // form에서 받아온 정보로 기존 게시판 정보 수정
+            bulletinBoard.setTitle(form.getTitle());
+            bulletinBoard.setContent(form.getContent());
+            bulletinBoardService.update(bulletinBoard);
+            // 수정된 게시판 정보를 저장
+        });
+
+        return "redirect:/";
+    }
 }

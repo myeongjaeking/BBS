@@ -20,10 +20,12 @@ public class BulletinBoardService {
         bulletinBoardRepository.save(bulletinBoard);
         return bulletinBoard.getTitle();
     }
+
     public void update(BulletinBoard bulletinBoard) {
-        // 수정된 내용을 저장
-        bulletinBoardRepository.save(bulletinBoard);
+        bulletinBoardRepository.edit_bulletinboard(bulletinBoard.getId(), bulletinBoard);
     }
+
+
 
     private void validateDuplicateTitle(BulletinBoard bulletinBoard){
         bulletinBoardRepository.findByTitle(bulletinBoard.getTitle())

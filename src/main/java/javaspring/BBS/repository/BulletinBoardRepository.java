@@ -12,4 +12,6 @@ public interface BulletinBoardRepository {
     Optional<BulletinBoard> findByContent(String content);
     List<BulletinBoard> findAll();
 
+    BulletinBoard  edit_bulletinboard(Long id,BulletinBoard bulletinBoard);
+
 }

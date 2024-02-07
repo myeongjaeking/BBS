@@ -20,7 +20,12 @@ public class MemoryBulletinBoardRepository implements BulletinBoardRepository {
     public Optional<BulletinBoard> findById(Long id) {
         return Optional.ofNullable(store.get(id));
     }
-
+    @Override
+    public  BulletinBoard edit_bulletinboard(Long id, BulletinBoard bulletinBoard){
+        store.remove(id);
+        store.put(bulletinBoard.getId(), bulletinBoard);
+        return bulletinBoard;
+    }
     @Override
     public Optional<BulletinBoard> findByTitle(String title) {
         return store.values().stream()
