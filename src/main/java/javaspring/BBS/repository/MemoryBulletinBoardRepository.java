@@ -15,6 +15,7 @@ public class MemoryBulletinBoardRepository implements BulletinBoardRepository {
         return bulletinBoard;
     }
 
+
     @Override
     public Optional<BulletinBoard> findById(Long id) {
         return Optional.ofNullable(store.get(id));

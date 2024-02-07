@@ -11,4 +11,5 @@ public interface BulletinBoardRepository {
     Optional<BulletinBoard> findByTitle(String title);
     Optional<BulletinBoard> findByContent(String content);
     List<BulletinBoard> findAll();
+
 }
