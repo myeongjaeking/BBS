@@ -24,7 +24,9 @@ public class BulletinBoardService {
     public void update(BulletinBoard bulletinBoard) {
         bulletinBoardRepository.edit_bulletinboard(bulletinBoard.getId(), bulletinBoard);
     }
-
+    public  void delete(Long id){
+        bulletinBoardRepository.deleteById(id);
+    }
 
 
     private void validateDuplicateTitle(BulletinBoard bulletinBoard){

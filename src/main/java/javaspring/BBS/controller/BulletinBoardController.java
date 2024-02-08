@@ -24,6 +24,7 @@ public class BulletinBoardController {
     public String createForm(){
         return "bulletinboards/createBulletinBoard";
     }
+
     @PostMapping("/bulletinboards/new")
     public String create(BulletinBoardForm form){
         BulletinBoard bulletinBoard = new BulletinBoard();
@@ -32,21 +33,20 @@ public class BulletinBoardController {
         bulletinBoardService.create(bulletinBoard);
         return "redirect:/";
     }
+
     @GetMapping("bulletinboards")
     public String list(Model model){
-
         List<BulletinBoard> bulletinBoards = bulletinBoardService.findBulletinBoards();
         model.addAttribute("bulletinboards",bulletinBoards);
         return "bulletinboards/bulletinboardList";
     }
+
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable("id") Long id, Model model) {
         // ID를 사용하여 기존 게시판 정보를 가져옴
         Optional<BulletinBoard> optionalBulletinBoard = bulletinBoardService.findOne(id);
-
         // optionalBulletinBoard가 존재하는 경우 모델에 추가
         optionalBulletinBoard.ifPresent(bulletinBoard -> model.addAttribute("bulletinboard", bulletinBoard));
-
         return "bulletinboards/editBulletinBoard";
     }
 
@@ -65,6 +65,23 @@ public class BulletinBoardController {
             // 수정된 게시판 정보를 저장
         });
 
+        return "redirect:/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteForm(@PathVariable("id") Long id, Model model) {
+        // ID를 사용하여 기존 게시판 정보를 가져옴
+        Optional<BulletinBoard> optionalBulletinBoard = bulletinBoardService.findOne(id);
+
+        // (Thyleaf템플릿에서 사용할 모델) optionalBulletinBoard가 존재하는 경우 모델에 추가
+        optionalBulletinBoard.ifPresent(bulletinBoard -> model.addAttribute("bulletinboard", bulletinBoard));
+
+        return "bulletinboards/deleteBulletinBoard";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        bulletinBoardService.delete(id);
         return "redirect:/";
     }
 }

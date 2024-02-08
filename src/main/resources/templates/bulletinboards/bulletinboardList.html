@@ -9,8 +9,8 @@
                 <th>#</th>
                 <th>제목</th>
                 <th>내용</th>
-                <th>상세보기</th>
-                <th>수정</th> <!-- 새로운 열 추가 -->
+                <th>수정</th>
+                <th>삭제</th><!-- 새로운 열 추가 -->
             </tr>
             </thead>
             <tbody>
@@ -21,6 +21,8 @@
 
                 <!-- 수정 폼으로 이동하는 링크 추가 -->
                 <td><a th:href="@{/edit/{id}(id=${bulletinboard.id})}">수정</a></td>
+                <!-- 삭제 폼으로 이동하는 링크 추가 -->
+                <td><a th:href="@{/delete/{id}(id=${bulletinboard.id})}" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a></td>
             </tr>
             </tbody>
         </table>
