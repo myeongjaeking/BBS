@@ -1,5 +1,9 @@
 package javaspring.BBS.domain;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "topic")
 public class BulletinBoard {
     public Long getId() {
         return id;
@@ -9,6 +13,8 @@ public class BulletinBoard {
         this.id = id;
     }
 
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public String getTitle() {
         return title;
@@ -25,7 +31,8 @@ public class BulletinBoard {
     public void setContent(String content) {
         this.content = content;
     }
-
+    @Column(name = "title")
     private String title;
+    @Column(name = "content")
     private String content;
 }

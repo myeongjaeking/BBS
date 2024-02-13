@@ -4,7 +4,7 @@ import javaspring.BBS.domain.BulletinBoard;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-@Repository
+
 public class MemoryBulletinBoardRepository implements BulletinBoardRepository {
     private static final Map<Long, BulletinBoard> store = new HashMap<>();
     private static long sequence = 0L;
