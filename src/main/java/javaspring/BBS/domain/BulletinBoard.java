@@ -3,7 +3,7 @@ package javaspring.BBS.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "topic") //내가 원하는 테이블
+@Table(name = "bulletin_board") //내가 원하는 테이블
 public class BulletinBoard {
     public Long getId() {
         return id;
@@ -35,4 +35,7 @@ public class BulletinBoard {
     private String title;
     @Column(name = "content")
     private String content;
+    @ManyToOne
+    @JoinColumn(name="member_name")
+    private Member member;
 }
