@@ -11,6 +11,7 @@ import java.util.List;
 public class Member {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_id;
+@Column(name="member_name",nullable = false)
     private String member_name;
     private String member_password;
     @OneToMany(mappedBy = "member")

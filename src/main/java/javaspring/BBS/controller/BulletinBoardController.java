@@ -31,7 +31,7 @@ public class BulletinBoardController {
         bulletinBoard.setTitle(form.getTitle());
         bulletinBoard.setContent(form.getContent());
         bulletinBoardService.create(bulletinBoard);
-        return "redirect:/";
+        return "members/success";
     }
 
     @GetMapping("bulletinboards")

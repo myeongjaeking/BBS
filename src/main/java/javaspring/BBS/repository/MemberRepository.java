@@ -1,15 +1,15 @@
 package javaspring.BBS.repository;
 
-import javaspring.BBS.domain.BulletinBoard;
 import javaspring.BBS.domain.Member;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member,Long > {
+public interface MemberRepository {
+    Member save(Member member);
+    Optional<Member> findByMember_id(Long member_id);
+    Optional<Member> findByMember_name(String member_name);
+    List<Member> findAll();
 
-    Member create(Member member);
-    Optional<Member> findByMember(String member_name);
-
+    Optional<Member> findByMemberNameAndMemberPassword(String member_name,String member_password);
 }

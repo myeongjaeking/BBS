@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <!-- 여기에 필요한 CSS 링크 등을 추가하세요 -->
+</head>
+<body>
+<div>
+    <h2>Login</h2>
+    <form th:action="@{/members/login}" method="post">
+        <div>
+            <label for="member_name">ID:</label>
+            <input type="text" id="member_name" name="member_name" required>
+        </div>
+        <div>
+            <label for="member_password">Password:</label>
+            <input type="password" id="member_password" name="member_password" required>
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+
+    <!-- 에러 메시지 표시 -->
+    <div th:if="${error}" style="color: red;">Invalid username or password</div>
+</div>
+</body>
+</html>
