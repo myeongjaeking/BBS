@@ -18,5 +18,6 @@ public class BulletinBoardForm {
     }
 
     private String content;
+
     private String title;
 }

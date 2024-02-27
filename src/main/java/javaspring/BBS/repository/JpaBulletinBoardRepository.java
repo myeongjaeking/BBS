@@ -2,17 +2,27 @@ package javaspring.BBS.repository;
 
 import jakarta.persistence.EntityManager;
 import javaspring.BBS.domain.BulletinBoard;
+import javaspring.BBS.domain.Member;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
 public class JpaBulletinBoardRepository implements BulletinBoardRepository {
     private  final EntityManager em;
+
+
     public JpaBulletinBoardRepository(EntityManager em){this.em =em;}
+
     @Override
-    public BulletinBoard save(BulletinBoard bulletinBoard) {
-        em.persist(bulletinBoard);
-        return bulletinBoard;
+    public BulletinBoard save(BulletinBoard bulletinBoard,Long member_id) {
+        Member member = em.find(Member.class,member_id);
+        if(member!=null){
+            bulletinBoard.setMember(member);
+            member.getBulletinBoards().add(bulletinBoard);
+            em.persist(bulletinBoard);
+        }
+        return null;
     }
 
     @Override

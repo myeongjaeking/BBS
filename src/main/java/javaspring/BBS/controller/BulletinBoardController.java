@@ -1,7 +1,11 @@
 package javaspring.BBS.controller;
 
+import jakarta.servlet.http.HttpSession;
 import javaspring.BBS.domain.BulletinBoard;
+import javaspring.BBS.domain.Member;
+import javaspring.BBS.repository.MemberRepository;
 import javaspring.BBS.service.BulletinBoardService;
+import javaspring.BBS.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +20,13 @@ import java.util.Optional;
 @Controller
 public class BulletinBoardController {
     private final BulletinBoardService bulletinBoardService;
+    private final MemberService memberService;
+    private final MemberRepository memberRepository;
     @Autowired
-    public BulletinBoardController(BulletinBoardService bulletinBoardService){
+    public BulletinBoardController(BulletinBoardService bulletinBoardService,MemberService memberService,MemberRepository memberRepository){
+        this.memberService = memberService;
         this.bulletinBoardService = bulletinBoardService;
+        this.memberRepository = memberRepository;
     }
     @GetMapping("/bulletinboards/new")
     public String createForm(){
@@ -26,12 +34,19 @@ public class BulletinBoardController {
     }
 
     @PostMapping("/bulletinboards/new")
-    public String create(BulletinBoardForm form){
+    public String create(BulletinBoardForm form, HttpSession session){
         BulletinBoard bulletinBoard = new BulletinBoard();
         bulletinBoard.setTitle(form.getTitle());
         bulletinBoard.setContent(form.getContent());
-        bulletinBoardService.create(bulletinBoard);
-        return "members/success";
+        Member loggedInMember = (Member) session.getAttribute("loggedInMember");
+        if(loggedInMember!=null){
+            Long memberId = loggedInMember.getMember_id();
+            bulletinBoardService.create(bulletinBoard,memberId);
+            return "members/success";
+        }else{
+            return "redirect:/members/login";
+        }
+
     }
 
     @GetMapping("bulletinboards")
@@ -65,7 +80,7 @@ public class BulletinBoardController {
             // 수정된 게시판 정보를 저장
         });
 
-        return "redirect:/";
+        return "members/success";
     }
 
     @GetMapping("/delete/{id}")
@@ -82,6 +97,6 @@ public class BulletinBoardController {
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         bulletinBoardService.delete(id);
-        return "redirect:/";
+        return "members/success";
     }
 }

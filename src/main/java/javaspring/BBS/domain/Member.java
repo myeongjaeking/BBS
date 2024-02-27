@@ -13,9 +13,8 @@ public class Member {
     private Long member_id;
 @Column(name="member_name",nullable = false)
     private String member_name;
+@Column(name="member_password",nullable = false)
     private String member_password;
-    @OneToMany(mappedBy = "member")
-    List<BulletinBoard> bulletinBoards = new ArrayList<BulletinBoard>();
 
     public Long getMember_id() {
         return member_id;
@@ -40,6 +39,9 @@ public class Member {
     public void setMember_password(String member_password) {
         this.member_password = member_password;
     }
+    @OneToMany(mappedBy = "member")
+    List<BulletinBoard> bulletinBoards = new ArrayList<BulletinBoard>();
+
 
     public List<BulletinBoard> getBulletinBoards() {
         return bulletinBoards;

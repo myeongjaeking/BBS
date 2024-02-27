@@ -1,5 +1,6 @@
 package javaspring.BBS.controller;
 
+import jakarta.servlet.http.HttpSession;
 import javaspring.BBS.domain.BulletinBoard;
 import javaspring.BBS.domain.Member;
 import javaspring.BBS.service.MemberService;
@@ -33,11 +34,13 @@ public class MemberController {
     public String loginForm(){return "members/login";}
 
     @PostMapping("/members/login")
-    public String login(MemberForm form,Model model){
+    public String login(MemberForm form, Model model, HttpSession session){
 
         Optional<Member> foundMember = memberService.login(form.getMember_name(),form.getMember_password());
 
         if(foundMember.isPresent()){
+            Member loggedInMember = foundMember.get();
+            session.setAttribute("loggedInMember",loggedInMember);
             return "/members/success";
         }else{
             model.addAttribute("error","Invalid username or password");

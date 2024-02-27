@@ -35,6 +35,15 @@ public class BulletinBoard {
     private String title;
     @Column(name = "content")
     private String content;
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
     @ManyToOne
     @JoinColumn(name="member_name")
     private Member member;

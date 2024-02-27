@@ -1,14 +1,10 @@
 package javaspring.BBS.service;
 
 import javaspring.BBS.domain.BulletinBoard;
-import javaspring.BBS.repository.BulletinBoardRepository;
-import javaspring.BBS.repository.MemoryBulletinBoardRepository;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Optional;
 
 

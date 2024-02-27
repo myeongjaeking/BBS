@@ -21,7 +21,7 @@ public class SpringConfig {
     }
     @Bean
     public BulletinBoardService bulletinBoardService(){
-        return new BulletinBoardService(bulletinBoardRepository());
+        return new BulletinBoardService(bulletinBoardRepository(),memberRepository());
     }
     @Bean
     public BulletinBoardRepository bulletinBoardRepository(){

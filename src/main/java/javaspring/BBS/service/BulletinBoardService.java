@@ -1,7 +1,9 @@
 package javaspring.BBS.service;
 
 import javaspring.BBS.domain.BulletinBoard;
+import javaspring.BBS.domain.Member;
 import javaspring.BBS.repository.BulletinBoardRepository;
+import javaspring.BBS.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,14 +14,18 @@ import java.util.Optional;
 @Service
 public class BulletinBoardService {
     private final BulletinBoardRepository bulletinBoardRepository;
-
+    private final MemberRepository memberRepository;
     @Autowired //의존성 주입
-    public  BulletinBoardService(BulletinBoardRepository bulletinBoardRepository){
+    public  BulletinBoardService(BulletinBoardRepository bulletinBoardRepository, MemberRepository memberRepository){
+        this.memberRepository = memberRepository;
         this.bulletinBoardRepository = bulletinBoardRepository;
     }
-    public String create(BulletinBoard bulletinBoard){
+    public String create(BulletinBoard bulletinBoard,Long member_id){
         validateDuplicateTitle(bulletinBoard);
-        bulletinBoardRepository.save(bulletinBoard);
+        Member member = memberRepository.findByMember_id(member_id)
+                        .orElseThrow(()-> new IllegalStateException("error"));
+        bulletinBoard.setMember(member);
+        bulletinBoardRepository.save(bulletinBoard,member_id);
         return bulletinBoard.getTitle();
     }
 
