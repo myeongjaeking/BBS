@@ -20,7 +20,6 @@ public class JpaMemberRepository implements MemberRepository{
         return Optional.ofNullable(member);
     }
 
-
     public Optional<Member> findByMember_name(String member_name) {
         List<Member> result = em.createQuery("select m from Member m where m.member_name = :member_name",Member.class)
                 .setParameter("member_name",member_name)

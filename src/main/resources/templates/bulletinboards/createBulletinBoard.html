@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="container">
-    <form action="/bulletinboards/new" method="post">
+    <form action="/bulletinboards/new" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">제목</label>
             <input type="text" id="name" name="title" placeholder="제목을 입력하세요">
@@ -10,6 +10,10 @@
         <div class="form-group">
             <label for="content">내용</label>
             <textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="file">파일 첨부</label>
+            <input type="file" id="file" name="file">
         </div>
         <button type="submit">등록</button>
     </form>

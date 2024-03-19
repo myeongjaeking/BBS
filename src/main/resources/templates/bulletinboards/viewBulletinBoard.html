@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Bulletin Board</title>
+</head>
+<body>
+<h2>Bulletin Board Details</h2>
+
+<div>
+    <h3>Title:</h3>
+    <p th:text="${bulletinboard.title}"></p>
+</div>
+
+<div>
+    <h3>Content:</h3>
+    <p th:text="${bulletinboard.content}"></p>
+</div>
+
+<div>
+    <h3>File:</h3>
+    <!-- 파일을 다운로드할 수 있는 링크 -->
+    <a th:href="@{/bulletinboards/download/{id}(id=${bulletinboard.id})}">다운받기</a>
+</div>
+
+</body>
+</html>

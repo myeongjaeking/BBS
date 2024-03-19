@@ -19,7 +19,7 @@
                 <td th:text="${bulletinboard.id}"></td>
                 <td th:text="${bulletinboard.title}"></td>
                 <td th:text="${bulletinboard.content}"></td>
-
+                <td><a th:href="@{/view/{id}(id=${bulletinboard.id})}">보기</a></td>
                 <!-- 수정 폼으로 이동하는 링크 추가 -->
                 <td><a th:href="@{/edit/{id}(id=${bulletinboard.id})}">수정</a></td>
                 <!-- 삭제 폼으로 이동하는 링크 추가 -->

@@ -9,10 +9,8 @@ import javaspring.BBS.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,14 +32,14 @@ public class BulletinBoardController {
     }
 
     @PostMapping("/bulletinboards/new")
-    public String create(BulletinBoardForm form, HttpSession session){
+    public String create(BulletinBoardForm form, HttpSession session, @RequestParam("file")MultipartFile file) throws Exception {
         BulletinBoard bulletinBoard = new BulletinBoard();
         bulletinBoard.setTitle(form.getTitle());
         bulletinBoard.setContent(form.getContent());
         Member loggedInMember = (Member) session.getAttribute("loggedInMember");
         if(loggedInMember!=null){
             Long memberId = loggedInMember.getMember_id();
-            bulletinBoardService.create(bulletinBoard,memberId);
+            bulletinBoardService.create(bulletinBoard,memberId,file);
             return "members/success";
         }else{
             return "redirect:/members/login";
@@ -63,6 +61,14 @@ public class BulletinBoardController {
         // optionalBulletinBoard가 존재하는 경우 모델에 추가
         optionalBulletinBoard.ifPresent(bulletinBoard -> model.addAttribute("bulletinboard", bulletinBoard));
         return "bulletinboards/editBulletinBoard";
+    }
+    @GetMapping("/view/{id}")
+    public String viewForm(@PathVariable("id") Long id, Model model) {
+        // ID를 사용하여 기존 게시판 정보를 가져옴
+        Optional<BulletinBoard> optionalBulletinBoard = bulletinBoardService.findOne(id);
+        // optionalBulletinBoard가 존재하는 경우 모델에 추가
+        optionalBulletinBoard.ifPresent(bulletinBoard -> model.addAttribute("bulletinboard", bulletinBoard));
+        return "bulletinboards/viewBulletinBoard";
     }
 
     @PostMapping("/edit/{id}")

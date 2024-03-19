@@ -11,8 +11,8 @@ import java.util.Optional;
 public class JpaBulletinBoardRepository implements BulletinBoardRepository {
     private  final EntityManager em;
 
-
     public JpaBulletinBoardRepository(EntityManager em){this.em =em;}
+
 
     @Override
     public BulletinBoard save(BulletinBoard bulletinBoard,Long member_id) {
