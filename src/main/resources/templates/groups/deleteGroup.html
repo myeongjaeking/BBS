@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>그룹 삭제 확인</title>
+</head>
+<body>
+<div class="container">
+    <h2>그룹 삭제 확인</h2>
+    <p>정말로 이 그룹을 삭제하시겠습니까?</p>
+
+    <!-- 삭제 수행 폼 -->
+    <form th:action="@{'/deleteGroup/' + ${group.group_id}}" method="post">
+        <input type="hidden" name="id" th:value="${group.group_id}" />
+        <button type="submit">Delete</button>
+    </form>
+
+    <!-- 취소 링크 -->
+    <a th:href="@{/}">취소</a>
+</div>
+</body>
+</html>

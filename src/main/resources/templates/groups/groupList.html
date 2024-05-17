@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <title>그룹 참여</title>
     <script type="text/javascript">
-        var ws;
 
+
+        var ws;
         function connect() {
             ws = new WebSocket("ws://localhost:9090/ws/groupList");
 
@@ -27,28 +28,20 @@
             };
         }
 
-        function joinGroup(groupId) {
+        function joinGroup(groupId,MName) {
             console.log("그룹 참여 메시지 전송: " + groupId);
-            if (ws.readyState === WebSocket.OPEN) {
-                ws.send("joinGroup:" + groupId);
-            } else {
-                console.log("WebSocket 연결이 닫혀 있습니다. 다시 연결을 시도합니다.");
-                connect();
-            }
+            var cmd = "reply";
+            var replyWriter = MName; // 가입신청자 ID를 여기에 설정
+            var groupWriter = "user1"; // 그룹장의 ID를 여기에 설정
+            var bno = groupId;
+
+            var message = cmd + "," + replyWriter + "," + groupWriter + "," + bno;
+            ws.send(message);
         }
     </script>
 </head>
 <body onload="connect();">
-<h1>Hello Spring</h1>
-<p>게시판</p>
-<p>
-    <a href="/bulletinboards/new">글작성</a>
-    <a href="/bulletinboards">글목록</a>
-    <a href="/groupCreate">그룹 생성</a>
-    <a href="/groupList">그룹 목록</a>
-    <a href="/groupMember">나의 그룹</a>
-    <a href="/subscribe">알람</a>
-</p>
+<h2>WebSocket Test</h2>
 <div class="container">
     <h2>그룹에 참여하기</h2>
     <ul>
@@ -56,12 +49,12 @@
             <span th:text="${group.group_name}"></span>
             <span th:text="' | 현재 인원: ' + ${group.group_num_people} + ' / 최대 인원: ' + ${group.group_max_people}"></span>
             <span th:if="${group.group_private}">
-                    <!-- 비공개 그룹 폼 -->
-                </span>
+                <!-- 비공개 그룹 폼 -->
+            </span>
             <span th:unless="${group.group_private}">
-                    <!-- 공개 그룹 바로 참여하기 링크에 onclick 이벤트 추가 -->
-                    <a href="#" th:onclick="'joinGroup(' + ${group.group_id} + ');return false;'">공개 그룹 바로 참여하기</a>
-                </span>
+                <!-- 공개 그룹 바로 참여하기 링크에 onclick 이벤트 추가 -->
+                <a href="#" th:onclick="'joinGroup(' + ${group.group_id} + ');return false;'">공개 그룹 바로 참여하기</a>
+            </span>
         </li>
     </ul>
 </div>

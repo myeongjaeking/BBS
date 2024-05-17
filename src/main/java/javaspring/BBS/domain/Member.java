@@ -42,10 +42,40 @@ public class Member {
     @OneToMany(mappedBy = "member")
     List<BulletinBoard> bulletinBoards = new ArrayList<BulletinBoard>();
 
+    public List<GroupMember> getGroupMembers() {
+        return groupMembers;
+    }
 
+    public void setGroupMembers(List<GroupMember> groupMembers) {
+        this.groupMembers = groupMembers;
+    }
+
+    @OneToMany(mappedBy = "member")
+    private List<GroupMember>groupMembers;
     public List<BulletinBoard> getBulletinBoards() {
         return bulletinBoards;
     }
+//    @OneToMany(mappedBy = "member_receiver")
+//    private List<Alarm>alarms_receiver;
+//
+//    public List<Alarm> getAlarms_receiver() {
+//        return alarms_receiver;
+//    }
+//
+//    public void setAlarms_receiver(List<Alarm> alarms_receiver) {
+//        this.alarms_receiver = alarms_receiver;
+//    }
+//
+//    public List<Alarm> getAlarms_sender() {
+//        return alarms_sender;
+//    }
+//
+//    public void setAlarms_sender(List<Alarm> alarms_sender) {
+//        this.alarms_sender = alarms_sender;
+//    }
+//
+//    @OneToMany(mappedBy = "member_sender")
+//    private List<Alarm>alarms_sender;
 
     public void setBulletinBoards(List<BulletinBoard> bulletinBoards) {
         this.bulletinBoards = bulletinBoards;

@@ -1,22 +1,26 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Create Group</title>
+</head>
 <body>
 <div class="container">
-    <form action="/bulletinboards/new" method="post" enctype="multipart/form-data">
+    <form action="/groupCreate" method="post">
         <div class="form-group">
-            <label for="name">제목</label>
-            <input type="text" id="name" name="title" placeholder="제목을 입력하세요">
+            <label for="group_name">그룹 이름</label>
+            <input type="text" id="group_name" name="group_name" placeholder="그룹 이름을 입력하세요">
         </div>
         <div class="form-group">
-            <label for="content">내용</label>
-            <textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea>
+            <label for="group_password">그룹 비밀번호</label>
+            <input type="password" id="group_password" name="group_password" placeholder="그룹 비밀번호를 입력하세요">
         </div>
         <div class="form-group">
-            <label for="file">파일 첨부</label>
-            <input type="file" id="file" name="file">
+            <label for="group_private">그룹 비공개 여부</label>
+            <input type="checkbox" id="group_private" name="group_private">
         </div>
-        <button type="submit">등록</button>
+        <button type="submit">그룹 생성</button>
     </form>
-</div> <!-- /container -->
+</div>
 </body>
 </html>

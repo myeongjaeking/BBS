@@ -31,13 +31,13 @@ public class BulletinBoardService {
         File saveFile = new File(projectPath,fileName);
         file.transferTo(saveFile);
 
-        validateDuplicateTitle(bulletinBoard);
+        //validateDuplicateTitle(bulletinBoard);
         Member member = memberRepository.findByMember_id(member_id)
                         .orElseThrow(()-> new IllegalStateException("error"));
         bulletinBoard.setMember(member);
         bulletinBoard.setFilename(fileName);
         bulletinBoard.setFilepath("/files/"+fileName);
-        //String fileUrl = "/files/"+fileName;
+
         String fileUrl = projectPath+"/"+fileName;
         bulletinBoard.setFileUrl(fileUrl);
 
@@ -49,17 +49,11 @@ public class BulletinBoardService {
         bulletinBoardRepository.edit_bulletinboard(bulletinBoard.getId(), bulletinBoard);
     }
     public  void delete(Long id){
-
         bulletinBoardRepository.deleteById(id);
     }
 
 
-    private void validateDuplicateTitle(BulletinBoard bulletinBoard){
-        bulletinBoardRepository.findByTitle(bulletinBoard.getTitle())
-                .ifPresent(m->{
-                    throw new IllegalStateException("이미 존재하는 제목입니다.");
-                });
-    }
+
     public List<BulletinBoard> findBulletinBoards(){
         return bulletinBoardRepository.findAll();
     }

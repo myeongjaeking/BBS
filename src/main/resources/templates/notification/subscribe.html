@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>알림 구독 페이지</title>
+    <script>
+        // 페이지가 로드되면 실행되는 함수
+        window.onload = function() {
+            // SSE 연결을 구독하는 함수 호출
+            subscribeToNotifications();
+        };
+
+        function subscribeToNotifications() {
+            // 서버로부터 알림을 받기 위한 EventSource 객체 생성
+            const eventSource = new EventSource('/subscribe');
+
+            eventSource.onmessage = function(event) {
+                // 서버로부터 메시지를 받았을 때 실행될 콜백. 받은 메시지를 화면에 표시
+                displayNotification(event.data);
+            };
+
+            eventSource.onerror = function(error) {
+                // 에러 핸들링
+                console.error('EventSource failed:', error);
+                eventSource.close();
+            };
+        }
+        function displayNotification(message) {
+            // 받은 메시지를 화면에 표시하기 위한 함수
+            const notificationsContainer = document.getElementById('notifications');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            notificationsContainer.appendChild(messageElement);
+        }
+    </script>
+</head>
+<body>
+<h1>실시간 알림 페이지</h1>
+<div id="notifications">
+    <!-- 알림 메시지가 여기에 표시됩니다. -->
+</div>
+</body>
+</html>

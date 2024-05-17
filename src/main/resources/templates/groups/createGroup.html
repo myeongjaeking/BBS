@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Create Group</title>
+    <script>
+        window.onload = function() {
+            var passwordInput = document.getElementById("group_password");
+            passwordInput.style.display = "none";
+        };
+
+        function togglePasswordInput() {
+            var passwordInput = document.getElementById("group_password");
+            var privateCheckbox = document.getElementById("group_private");
+
+            if (privateCheckbox.checked) {
+                passwordInput.style.display = "block";
+            } else {
+                passwordInput.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <form action="/groupCreate" method="post">
+        <div class="form-group">
+            <label for="group_name">그룹 이름</label>
+            <input type="text" id="group_name" name="group_name" placeholder="그룹 이름을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="group_private">그룹 비공개 여부</label>
+            <input type="checkbox" id="group_private" name="group_private" onchange="togglePasswordInput()">
+        </div>
+        <div class="form-group" id="group_password">
+            <label for="group_password">그룹 비밀번호</label>
+            <input type="password" id="group_password_input" name="group_password" placeholder="그룹 비밀번호를 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="group_max_people">그룹 인원 수</label>
+            <input type="number" id="group_max_people" name="group_max_people" placeholder="그룹 인원 수를 입력하세요">
+        </div>
+        <button type="submit">그룹 생성</button>
+    </form>
+</div>
+</body>
+</html>

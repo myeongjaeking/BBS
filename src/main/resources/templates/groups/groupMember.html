@@ -1,0 +1,27 @@
+<!-- groupMember.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Groups</title>
+</head>
+<body>
+<h1>My Groups</h1>
+<ul>
+    <!-- Loop through each group member -->
+    <li th:each="groupData : ${groupDataList}">
+        <!-- Display group name and role -->
+        <span th:text="${groupData[0]}"></span>
+        <span th:text="${groupData[1]}"></span>
+        <!-- Check if the group role is true before displaying delete link -->
+        <span th:if="${groupData[1]}">
+            <a th:href="@{/deleteGroup/{id}(id=${groupData[2]})}">그룹 삭제</a>
+        </span>
+        <!-- If the group role is false, display "그룹 탈퇴" link -->
+        <span th:unless="${groupData[1]}">
+            <a th:href="@{/leaveGroup/{id}(id=${groupData[2]})}">그룹 탈퇴</a>
+        </span>
+    </li>
+</ul>
+</body>
+</html>
