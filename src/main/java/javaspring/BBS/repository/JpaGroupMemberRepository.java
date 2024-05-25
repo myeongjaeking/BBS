@@ -47,7 +47,7 @@ public class JpaGroupMemberRepository implements GroupMemberRepository{
     }
 
     @Override
-    public void deleteGroupAndMember(Long id) {
+    public z deleteGroupAndMember(Long id) {
         // 해당 그룹 ID에 해당하는 모든 그룹 멤버를 검색
         List<GroupMember> groupMembers = em.createQuery("SELECT gm FROM GroupMember gm WHERE gm.group.id = :groupId", GroupMember.class)
                 .setParameter("groupId", id)
@@ -77,4 +77,11 @@ public class JpaGroupMemberRepository implements GroupMemberRepository{
     public List<GroupMember> findMyGroup(Long member_id) {
         return null;
     }
+    @Override
+    public List<GroupMember> findByGroupMemberAll(){
+        return em.createQuery("select gm from GroupMember gm",GroupMember.class)
+                .getResultList();
+    }
+
+
 }

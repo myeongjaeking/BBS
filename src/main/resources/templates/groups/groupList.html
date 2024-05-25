@@ -3,8 +3,6 @@
 <head>
     <title>그룹 참여</title>
     <script type="text/javascript">
-
-
         var ws;
         function connect() {
             ws = new WebSocket("ws://localhost:9090/ws/groupList");
@@ -28,13 +26,17 @@
             };
         }
 
-        function joinGroup(groupId,MName) {
+        function joinGroup(element) {
+            var groupId = element.getAttribute('data-groupId');
+            var MName = element.getAttribute('data-memberName');
+            var groupMemberName = element.getAttribute('data-groupMemberName');
+
             console.log("그룹 참여 메시지 전송: " + groupId);
             var cmd = "reply";
             var replyWriter = MName; // 가입신청자 ID를 여기에 설정
-            var groupWriter = "user1"; // 그룹장의 ID를 여기에 설정
+            var groupWriter = groupMemberName; // 그룹장의 ID를 여기에 설정
             var bno = groupId;
-
+            console.log(cmd+replyWriter+groupWriter+bno);
             var message = cmd + "," + replyWriter + "," + groupWriter + "," + bno;
             ws.send(message);
         }
@@ -52,8 +54,12 @@
                 <!-- 비공개 그룹 폼 -->
             </span>
             <span th:unless="${group.group_private}">
-                <!-- 공개 그룹 바로 참여하기 링크에 onclick 이벤트 추가 -->
-                <a href="#" th:onclick="'joinGroup(' + ${group.group_id} + ');return false;'">공개 그룹 바로 참여하기</a>
+                <!-- 공개 그룹 바로 참여하기 링크 -->
+                <a href="#"
+                   th:data-groupId="${group.group_id}"
+                   th:data-memberName= "${MemberName}"
+                   th:data-groupMemberName="${group.group_MemberName}"
+                   onclick="joinGroup(this); return false;">공개 그룹 바로 참여하기</a>
             </span>
         </li>
     </ul>

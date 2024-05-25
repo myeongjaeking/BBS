@@ -5,6 +5,7 @@ public class GroupForm {
     String group_name;
     String group_password;
 
+
     public boolean isGroup_private() {
         return group_private;
     }

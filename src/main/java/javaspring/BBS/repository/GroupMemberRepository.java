@@ -12,5 +12,6 @@ public interface GroupMemberRepository {
     List<Object[]> findGroupAndRoleByMemberId(Long memberId);
     void deleteGroupAndMember(Long id);
     void leaveGroup(Long id,Long member_id);
+    List<GroupMember> findByGroupMemberAll();
 
 }

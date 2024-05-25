@@ -1,10 +1,8 @@
 package javaspring.BBS.repository;
 
 import jakarta.persistence.EntityManager;
-import javaspring.BBS.domain.BulletinBoard;
 import javaspring.BBS.domain.Group;
 import javaspring.BBS.domain.Member;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
@@ -61,6 +59,10 @@ public class JpaGroupRepository implements GroupRepository{
         if (member != null) {
             group.addMemberToGroup(member,true);
         }
+    }
+    @Override
+    public void edit_group(Group group){
+        em.merge(group);
     }
 
 }

@@ -16,6 +16,15 @@ public class Group {
     private boolean group_private;
     private Long group_max_people;
 
+    private String group_MemberName;
+
+    public String getGroup_MemberName() {
+        return group_MemberName;
+    }
+
+    public void setGroup_MemberName(String group_MemberName) {
+        this.group_MemberName = group_MemberName;
+    }
 
     public Long getGroup_max_people() {
         return group_max_people;

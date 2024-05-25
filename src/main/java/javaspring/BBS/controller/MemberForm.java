@@ -19,6 +19,6 @@ public class MemberForm {
         this.member_password = member_password;
     }
 
-    private String member_password;
+        private String member_password;
 
 }

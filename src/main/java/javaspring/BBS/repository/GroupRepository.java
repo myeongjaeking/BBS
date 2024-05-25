@@ -16,4 +16,5 @@ public interface GroupRepository {
     void addMemberToGroup(Group group, Long memberId);
     void deleteGroup(Long id);
 
+    void edit_group(Group group);
 }

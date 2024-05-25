@@ -58,5 +58,7 @@ public class GroupService {
     public Optional<Group> findByGroup_id(Long id){
         return groupRepository.findByGroup_id(id);
     }
+    public void edit_group(Group group){groupRepository.edit_group(group);}
     public List<Group> findAll(){return groupRepository.findAll();}
+    public List<GroupMember> findByGroupMemerAll(){return groupMemberRepository.findByGroupMemberAll();}
 }

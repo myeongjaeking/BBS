@@ -1,5 +1,6 @@
 package javaspring.BBS.handler;
 
+import jakarta.servlet.http.HttpSession;
 import javaspring.BBS.domain.Member;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -8,18 +9,32 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class WebSocketHandler extends TextWebSocketHandler {
 
     List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
-    Map<String,WebSocketSession> memberSessions = new HashMap<>();
+    Map<String,WebSocketSession> memberSessions = new ConcurrentHashMap<>();
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception{
         System.out.println("afterConnectionEstablished"+session);
+
         sessions.add(session);
-        String senderId = getId(session);
-        memberSessions.put(senderId,session);
+        HttpSession httpSession = (HttpSession) session.getAttributes().get("HTTP_SESSION");
+        if (httpSession != null) {
+            Member loginMember = (Member) httpSession.getAttribute("loggedInMember");
+            if (loginMember != null) {
+                session.getAttributes().put("loggedInMember", loginMember);
+                String senderId = loginMember.getMember_name();
+                memberSessions.put(senderId, session);
+                System.out.println("Logged-in member: " + senderId);
+            } else {
+                System.out.println("No logged-in member found in HttpSession.");
+            }
+        } else {
+            System.out.println("No HttpSession found.");
+        }
     }
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -39,8 +54,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 String bno = strs[3];
 
                 WebSocketSession groupCreateSession = memberSessions.get(groupWriter);
+                System.out.println(memberSessions.get(groupWriter));
                 if("reply".equals(cmd)&&groupCreateSession!=null){
-                    TextMessage tmpMsg = new TextMessage(replyWriter+"님이"+bno+"번 그룹에 가입신청을 했습니다!");
+
+                    TextMessage tmpMsg = new TextMessage(replyWriter + "님이 "
+                            + "<a href='/group/join?bno=" + bno + "'>" + bno + "</a>번 그룹에 가입신청 했습니다!");
                     groupCreateSession.sendMessage(tmpMsg);
                 }
             }
@@ -48,10 +66,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     }
     private String getId(WebSocketSession session){
-        Map<String, Object> httpSession = session.getAttributes();
-        Member loginMember = (Member) httpSession.get("loggedInMember");
-        if(null==loginMember)
-            return session.getId();
+        Member loginMember = (Member) session.getAttributes().get("loggedInMember");
+        System.out.println(loginMember.getMember_name());
+        if(null==loginMember){
+            return session.getId();}
         else return loginMember.getMember_name();
 
     }
